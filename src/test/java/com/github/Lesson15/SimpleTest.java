@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
 import org.testng.annotations.*;
 
 
@@ -34,13 +35,19 @@ public class SimpleTest {
 
     @Test
     public void simpleTest() {
-        System.setProperty("webdriver.chrome.driver","src/test/resources/chromеdriver.exe");
+        System.setProperty("webdriver.chrome.driver","src/test/resources/chromedriver.exe");
         LOG.info("Simple test");
         WebDriver webDriver = new ChromeDriver();
         webDriver.get("https://yandex.ru/");
         WebElement input = webDriver.findElement(By.id("text"));
         input.sendKeys("Руддщ цщкдв");
-        WebElement button = webDriver.findElement(By.className("button suggest2-form__button button_theme_websearch button_size_ws-head i-bem button_js_inited"));
+        WebElement button = webDriver.findElement(By.xpath("//div[@class=\"search2__button\"]/button"));
+        button.click();
+        WebElement inspectedFild = webDriver.findElement(By.xpath("//span[@class=\"input__box\"]/input"));
+        Assert.assertEquals(inspectedFild.getAttribute("value"),"Hello world");
+        String inspectedFildTitle = webDriver.getTitle();
+        Assert.assertTrue(inspectedFildTitle.contains("Hello world"));
+
     }
 
 
