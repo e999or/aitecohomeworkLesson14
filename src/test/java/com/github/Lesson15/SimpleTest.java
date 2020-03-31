@@ -47,6 +47,7 @@ public class SimpleTest {
         Assert.assertEquals(inspectedFild.getAttribute("value"),"Hello world");
         String inspectedFildTitle = webDriver.getTitle();
         Assert.assertTrue(inspectedFildTitle.contains("Hello world"));
+
         webDriver.quit();
     }
 }
