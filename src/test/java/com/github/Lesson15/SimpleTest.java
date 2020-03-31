@@ -12,32 +12,25 @@ import org.testng.annotations.*;
 
 public class SimpleTest {
     private static final Logger LOG = LoggerFactory.getLogger(SimpleTest.class);
+    WebDriver webDriver ;
 
     @BeforeClass
     public void beforeTestClass() {
         LOG.info("Before class ComplexTest");
+        System.setProperty("webdriver.chrome.driver","src/test/resources/chromedriver.exe");
+        webDriver = new ChromeDriver();
     }
 
     @AfterClass
     public void afterxTestClass() {
         LOG.info("After class ComplexTest");
+        webDriver.quit();
     }
 
-    @BeforeMethod
-    public void beforeTestMethod() {
-        LOG.info("Before ComplexTest method");
-    }
-
-    @AfterMethod
-    public void afterTestMethod() {
-        LOG.info("After Test method");
-    }
 
     @Test
     public void simpleTest() {
-        System.setProperty("webdriver.chrome.driver","src/test/resources/chromedriver.exe");
         LOG.info("Simple test");
-        WebDriver webDriver = new ChromeDriver();
         webDriver.get("https://yandex.ru/");
         WebElement input = webDriver.findElement(By.id("text"));
         input.sendKeys("Руддщ цщкдв");
@@ -47,8 +40,6 @@ public class SimpleTest {
         Assert.assertEquals(inspectedFild.getAttribute("value"),"Hello world");
         String inspectedFildTitle = webDriver.getTitle();
         Assert.assertTrue(inspectedFildTitle.contains("Hello world"));
-
-        webDriver.quit();
     }
 }
 
